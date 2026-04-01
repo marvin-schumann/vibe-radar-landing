@@ -177,7 +177,7 @@
             margin: 0 auto 1.5rem;
         }
 
-        .waitlist-form input {
+        .waitlist-form input[type="email"] {
             flex: 1;
             padding: 0.85rem 1.2rem;
             background: var(--bg-card);
@@ -189,8 +189,8 @@
             outline: none;
             transition: border-color 0.3s;
         }
-        .waitlist-form input::placeholder { color: #555; }
-        .waitlist-form input:focus { border-color: var(--cyan); }
+        .waitlist-form input[type="email"]::placeholder { color: #555; }
+        .waitlist-form input[type="email"]:focus { border-color: var(--cyan); }
 
         .waitlist-form button {
             padding: 0.85rem 1.8rem;
@@ -219,6 +219,86 @@
             font-size: 0.78rem;
             color: #555;
         }
+
+        /* Survey step */
+        .survey-step {
+            display: none;
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: left;
+        }
+        .survey-step.active { display: block; }
+        .survey-step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--cyan);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .survey-q { margin-bottom: 1rem; }
+        .survey-q label {
+            display: block;
+            font-size: 0.82rem;
+            color: #aaa;
+            margin-bottom: 0.4rem;
+        }
+        .survey-q input[type="text"],
+        .survey-q select {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .survey-q input[type="text"]:focus,
+        .survey-q select:focus { border-color: var(--cyan); }
+        .survey-q select option { background: #161229; }
+        .survey-radios { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .survey-radios label {
+            display: flex; align-items: center; gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 0;
+        }
+        .survey-radios input[type="radio"] { display: none; }
+        .survey-radios label:has(input:checked) {
+            border-color: var(--cyan);
+            background: rgba(0,240,255,0.08);
+            color: var(--cyan);
+        }
+        .survey-actions {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 1.25rem;
+        }
+        .survey-actions button {
+            padding: 0.7rem 1.4rem;
+            background: linear-gradient(135deg, var(--cyan), #00c8ff);
+            border: none; border-radius: 10px;
+            color: var(--bg); font-weight: 600; font-size: 0.9rem;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .survey-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .survey-skip {
+            font-size: 0.78rem; color: #555;
+            background: none; border: none;
+            cursor: pointer; text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .survey-skip:hover { color: #888; }
 
         .form-success {
             display: none;
@@ -489,14 +569,56 @@
                 Connect your Spotify or SoundCloud. We match your music taste to upcoming events in your city — from headline acts to underground sets.
             </p>
 
+            <!-- Step 1: email -->
             <form class="waitlist-form" id="waitlistForm">
                 <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
-                <button type="submit" id="submitBtn">Join Waitlist</button>
+                <button type="submit" id="submitBtn">Continue</button>
             </form>
-            <div class="form-success" id="formSuccess">
-                You're in! We'll notify you when early access opens.
+
+            <!-- Step 2: survey -->
+            <div class="survey-step" id="surveyStep">
+                <h3>Quick questions — takes 30 seconds</h3>
+                <div class="survey-q">
+                    <label>Where are you based, and how often do you go to electronic events?</label>
+                    <select id="sq1">
+                        <option value="">Select...</option>
+                        <option>Madrid — 1×/month or less</option>
+                        <option>Madrid — 2–3×/month</option>
+                        <option>Madrid — weekly</option>
+                        <option>Barcelona — 1×/month or less</option>
+                        <option>Barcelona — 2–3×/month</option>
+                        <option>Berlin / Amsterdam / other EU city</option>
+                        <option>Outside Europe</option>
+                    </select>
+                </div>
+                <div class="survey-q">
+                    <label>How did you find out about the last 3 events you attended?</label>
+                    <input type="text" id="sq2" placeholder="Instagram, a friend, RA...">
+                </div>
+                <div class="survey-q">
+                    <label>What's your biggest frustration with finding events right now?</label>
+                    <input type="text" id="sq3" placeholder="Finding out too late, too much noise...">
+                </div>
+                <div class="survey-q">
+                    <label>What would you pay per month for this?</label>
+                    <div class="survey-radios">
+                        <label><input type="radio" name="price" value="€0"> €0</label>
+                        <label><input type="radio" name="price" value="€2–3"> €2–3</label>
+                        <label><input type="radio" name="price" value="€4–5"> €4–5</label>
+                        <label><input type="radio" name="price" value="€6–10"> €6–10</label>
+                        <label><input type="radio" name="price" value="€10+"> €10+</label>
+                    </div>
+                </div>
+                <div class="survey-actions">
+                    <button type="button" id="surveySubmit">Join Waitlist</button>
+                    <button type="button" class="survey-skip" id="surveySkip">Skip survey</button>
+                </div>
             </div>
-            <p class="form-note">Free to use. No spam. Unsubscribe anytime.</p>
+
+            <div class="form-success" id="formSuccess">
+                You're on the list. We'll be in touch.
+            </div>
+            <p class="form-note" id="formNote">Free to use. No spam. Unsubscribe anytime.</p>
 
             <div class="social-proof fade-up">
                 <div class="proof-stat">
@@ -630,46 +752,76 @@
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
         // ── Waitlist form handling ──
-        // Uses Formspree or stores locally — replace FORM_ID with your Formspree form ID
         const FORMSPREE_URL = 'https://formspree.io/f/mwvwvnpv';
+        let _pendingEmail = '';
 
-        async function handleSubmit(e, formId, emailId) {
+        async function submitToFormspree(payload) {
+            await fetch(FORMSPREE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+        }
+
+        function showSuccess(formEl) {
+            formEl.style.display = 'none';
+            document.getElementById('surveyStep').classList.remove('active');
+            document.getElementById('formSuccess').classList.add('show');
+            document.getElementById('formNote').style.display = 'none';
+        }
+
+        // Step 1: capture email, show survey
+        document.getElementById('waitlistForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const form = document.getElementById(formId);
-            const email = document.getElementById(emailId).value;
-            const btn = form.querySelector('button');
+            _pendingEmail = document.getElementById('emailInput').value;
+            document.getElementById('waitlistForm').style.display = 'none';
+            document.getElementById('formNote').style.display = 'none';
+            document.getElementById('surveyStep').classList.add('active');
+        });
 
+        // Step 2: submit with survey answers
+        document.getElementById('surveySubmit').addEventListener('click', async () => {
+            const btn = document.getElementById('surveySubmit');
             btn.disabled = true;
             btn.textContent = 'Joining...';
-
+            const price = document.querySelector('input[name="price"]:checked');
             try {
-                if (FORMSPREE_URL) {
-                    await fetch(FORMSPREE_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, source: 'vibe-radar-landing' }),
-                    });
-                } else {
-                    // Fallback: store in localStorage for now
-                    const waitlist = JSON.parse(localStorage.getItem('vr_waitlist') || '[]');
-                    waitlist.push({ email, timestamp: new Date().toISOString() });
-                    localStorage.setItem('vr_waitlist', JSON.stringify(waitlist));
-                    console.log('Waitlist signup (local):', email);
-                }
+                await submitToFormspree({
+                    email: _pendingEmail,
+                    source: 'vibe-radar-landing',
+                    city_frequency: document.getElementById('sq1').value || '',
+                    discovery_method: document.getElementById('sq2').value || '',
+                    frustration: document.getElementById('sq3').value || '',
+                    willingness_to_pay: price ? price.value : '',
+                });
+            } catch (err) { console.error('Signup failed:', err); }
+            showSuccess(document.getElementById('waitlistForm'));
+        });
 
-                // Show success
-                document.getElementById('formSuccess').classList.add('show');
-                form.style.display = 'none';
-                btn.textContent = 'Joined!';
+        // Skip survey — submit email only
+        document.getElementById('surveySkip').addEventListener('click', async () => {
+            try {
+                await submitToFormspree({ email: _pendingEmail, source: 'vibe-radar-landing' });
+            } catch (err) { console.error('Signup failed:', err); }
+            showSuccess(document.getElementById('waitlistForm'));
+        });
+
+        // Bottom form (simple — no survey)
+        document.getElementById('waitlistForm2').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = document.getElementById('waitlistForm2');
+            const email = document.getElementById('emailInput2').value;
+            const btn = form.querySelector('button');
+            btn.disabled = true;
+            btn.textContent = 'Joining...';
+            try {
+                await submitToFormspree({ email, source: 'vibe-radar-landing-bottom' });
+                btn.textContent = 'You\'re in.';
             } catch (err) {
                 btn.disabled = false;
                 btn.textContent = 'Try Again';
-                console.error('Signup failed:', err);
             }
-        }
-
-        document.getElementById('waitlistForm').addEventListener('submit', (e) => handleSubmit(e, 'waitlistForm', 'emailInput'));
-        document.getElementById('waitlistForm2').addEventListener('submit', (e) => handleSubmit(e, 'waitlistForm2', 'emailInput2'));
+        });
 
         // ── Smooth scroll for nav CTA ──
         document.querySelector('a[href="#waitlist"]').addEventListener('click', (e) => {
