@@ -310,6 +310,27 @@
             color: var(--text-faint);
         }
 
+        .cta-primary {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--lime);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--bg);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196,241,53,0.25);
+        }
+
         /* Survey step */
         .survey-step {
             display: none;
@@ -664,7 +685,7 @@
                 </div>
                 <span class="logo-text">Frequenz</span>
             </a>
-            <a href="#waitlist" class="cta-nav">Join Waitlist</a>
+            <a href="https://app.frequenz.live/login" class="cta-nav">Get Started</a>
         </nav>
 
         <!-- Hero -->
@@ -683,7 +704,13 @@
                 Connect your Spotify or SoundCloud. We match your music taste to upcoming events in your city — from headline acts to underground sets.
             </p>
 
-            <!-- Step 1: email -->
+            <!-- Primary CTA: go to app -->
+            <div style="margin-bottom: 2rem;">
+                <a href="https://app.frequenz.live/login" class="cta-primary">Get Started — It's Free</a>
+            </div>
+
+            <!-- Secondary: email capture -->
+            <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll notify you</p>
             <form class="waitlist-form" id="waitlistForm">
                 <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
                 <button type="submit" id="submitBtn">Continue</button>
@@ -840,10 +867,14 @@
         <!-- Final CTA -->
         <section class="final-cta">
             <h2 class="fade-up">Ready to find <span class="accent">your events</span>?</h2>
-            <p class="fade-up">Join the waitlist and be first to know when we launch.</p>
+            <p class="fade-up">Sign up free and connect your SoundCloud in 30 seconds.</p>
+            <div style="margin-bottom: 2rem;">
+                <a href="https://app.frequenz.live/login" class="cta-primary">Get Started — It's Free</a>
+            </div>
+            <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll notify you</p>
             <form class="waitlist-form" id="waitlistForm2">
                 <input type="email" id="emailInput2" placeholder="your@email.com" required autocomplete="email">
-                <button type="submit">Get Early Access</button>
+                <button type="submit">Notify Me</button>
             </form>
         </section>
 
@@ -937,12 +968,7 @@
             }
         });
 
-        // ── Smooth scroll for nav CTA ──
-        document.querySelector('a[href="#waitlist"]').addEventListener('click', (e) => {
-            e.preventDefault();
-            document.getElementById('emailInput').focus();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        // Nav CTA now links directly to the app — no scroll handler needed.
     </script>
 </body>
 </html>
