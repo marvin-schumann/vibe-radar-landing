@@ -655,6 +655,69 @@
             .proof-divider { width: 40px; height: 1px; }
         }
 
+        /* ── Dashboard preview ── */
+        .preview-section {
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .preview-label {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .preview-showcase {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .preview-desktop {
+            flex: 1;
+            max-width: 720px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(196,241,53,0.06);
+            transform: perspective(1200px) rotateY(-2deg) rotateX(1deg);
+            border: 1px solid var(--border);
+        }
+
+        .preview-mobile {
+            width: 180px;
+            flex-shrink: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(196,241,53,0.06);
+            transform: perspective(1200px) rotateY(3deg) rotateX(1deg);
+            border: 1px solid var(--border);
+        }
+
+        .preview-desktop img,
+        .preview-mobile img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .preview-showcase { flex-direction: column; align-items: center; gap: 1.5rem; }
+            .preview-desktop { transform: none; max-width: 100%; }
+            .preview-mobile { width: 140px; transform: none; }
+        }
+
         /* ── Animations ── */
         .fade-up {
             opacity: 0;
@@ -779,6 +842,15 @@
             </div>
         </section>
 
+        <!-- Dashboard Preview -->
+        <section class="preview-section fade-up">
+            <div class="preview-label">Early Access Preview</div>
+            <div class="preview-showcase">
+                <img class="preview-desktop" src="/images/dashboard-desktop.png" alt="Frequenz dashboard — taste profile, underground depth score, and matched events" width="1440" height="900" loading="lazy">
+                <img class="preview-mobile" src="/images/dashboard-mobile.png" alt="Frequenz mobile dashboard" width="390" height="844" loading="lazy">
+            </div>
+        </section>
+
         <!-- How it works -->
         <section class="how-it-works">
             <h2 class="section-title fade-up"><span class="accent">//</span> How it works</h2>
@@ -880,7 +952,7 @@
 
         <!-- Footer -->
         <footer>
-            <p>Frequenz &copy; 2026 &nbsp;&middot;&nbsp; Built in Madrid &nbsp;&middot;&nbsp; <a href="mailto:hello@frequenz.live">Contact</a> &nbsp;&middot;&nbsp; <a href="/impressum">Impressum</a> &nbsp;&middot;&nbsp; <a href="/datenschutz">Datenschutz</a></p>
+            <p>Frequenz &copy; 2026 &nbsp;&middot;&nbsp; Built in Madrid &nbsp;&middot;&nbsp; <a href="mailto:hello@frequenz.live">Contact</a> &nbsp;&middot;&nbsp; <a href="/impressum">Impressum</a> &nbsp;&middot;&nbsp; <a href="/datenschutz">Datenschutz</a> &nbsp;&middot;&nbsp; <a href="/privacy">Privacy Policy</a></p>
         </footer>
     </div>
 
