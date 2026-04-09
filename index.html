@@ -778,6 +778,10 @@
                 <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
                 <button type="submit" id="submitBtn">Continue</button>
             </form>
+            <label style="display:flex; align-items:flex-start; gap:0.5rem; margin-top:0.75rem; font-size:0.7rem; color:var(--text-dim); max-width:480px; cursor:pointer; line-height:1.4;">
+                <input type="checkbox" id="consentCheck" required style="margin-top:2px; accent-color:var(--lime);">
+                <span>I agree to the <a href="/datenschutz" style="color:var(--lime);">Datenschutzerklärung</a> / <a href="/privacy" style="color:var(--lime);">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
+            </label>
 
             <!-- Step 2: survey -->
             <div class="survey-step" id="surveyStep">
@@ -941,6 +945,10 @@
                 <input type="email" id="emailInput2" placeholder="your@email.com" required autocomplete="email">
                 <button type="submit">Notify Me</button>
             </form>
+            <label style="display:flex; align-items:flex-start; gap:0.5rem; margin-top:0.75rem; font-size:0.7rem; color:var(--text-dim); max-width:480px; cursor:pointer; line-height:1.4;">
+                <input type="checkbox" id="consentCheck2" required style="margin-top:2px; accent-color:var(--lime);">
+                <span>I agree to the <a href="/datenschutz" style="color:var(--lime);">Datenschutzerklärung</a> / <a href="/privacy" style="color:var(--lime);">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
+            </label>
         </section>
 
         <!-- Footer -->
@@ -983,6 +991,10 @@
         // Step 1: capture email, show survey
         document.getElementById('waitlistForm').addEventListener('submit', (e) => {
             e.preventDefault();
+            if (!document.getElementById('consentCheck').checked) {
+                document.getElementById('consentCheck').focus();
+                return;
+            }
             _pendingEmail = document.getElementById('emailInput').value;
             document.getElementById('waitlistForm').style.display = 'none';
             document.getElementById('formNote').style.display = 'none';
@@ -1019,6 +1031,10 @@
         // Bottom form (simple — no survey)
         document.getElementById('waitlistForm2').addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (!document.getElementById('consentCheck2').checked) {
+                document.getElementById('consentCheck2').focus();
+                return;
+            }
             const form = document.getElementById('waitlistForm2');
             const email = document.getElementById('emailInput2').value;
             const btn = form.querySelector('button');
