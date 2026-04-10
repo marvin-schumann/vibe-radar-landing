@@ -793,7 +793,7 @@
                 </div>
                 <span class="logo-text">Frequenz</span>
             </a>
-            <a href="https://app.frequenz.live/login" class="cta-nav">Get Started</a>
+            <a href="#waitlistForm" class="cta-nav" data-scroll-to="emailInput">Join Waitlist</a>
         </nav>
 
         <!-- Hero -->
@@ -814,7 +814,7 @@
 
             <!-- Primary CTA: go to app -->
             <div style="margin-bottom: 2rem;">
-                <a href="https://app.frequenz.live/login" class="cta-primary">Get Started — It's Free</a>
+                <a href="#waitlistForm" class="cta-primary" data-scroll-to="emailInput">Join the Waitlist</a>
             </div>
 
             <!-- Secondary: email capture -->
@@ -984,7 +984,7 @@
             <h2 class="fade-up">Ready to find <span class="accent">your events</span>?</h2>
             <p class="fade-up">Sign up free and connect your SoundCloud in 30 seconds.</p>
             <div style="margin-bottom: 2rem;">
-                <a href="https://app.frequenz.live/login" class="cta-primary">Get Started — It's Free</a>
+                <a href="#waitlistForm" class="cta-primary" data-scroll-to="emailInput">Join the Waitlist</a>
             </div>
             <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll notify you</p>
             <form class="waitlist-form" id="waitlistForm2">
@@ -1122,7 +1122,19 @@
             }
         });
 
-        // Nav CTA now links directly to the app — no scroll handler needed.
+        // CTA buttons (nav + hero + final) scroll to the waitlist form
+        // and focus the email input. Used while app.frequenz.live is not yet
+        // deployed; will be flipped back to direct app login after launch.
+        document.querySelectorAll('[data-scroll-to]').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = el.getAttribute('data-scroll-to');
+                const target = document.getElementById(targetId);
+                if (!target) return;
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                setTimeout(() => target.focus(), 450);
+            });
+        });
     </script>
 </body>
 </html>
