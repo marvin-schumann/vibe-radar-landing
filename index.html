@@ -310,6 +310,51 @@
             color: var(--text-faint);
         }
 
+        /* Consent checkbox — centered to match form, with clear error state */
+        .consent-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            max-width: 480px;
+            margin: 0.85rem auto 0;
+            padding: 0.6rem 0.85rem;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            line-height: 1.45;
+            cursor: pointer;
+            text-align: left;
+            border-radius: var(--radius);
+            border: 1px solid transparent;
+            transition: border-color 0.25s, background 0.25s;
+        }
+        .consent-row input[type="checkbox"] {
+            margin-top: 2px;
+            accent-color: var(--lime);
+            flex-shrink: 0;
+        }
+        .consent-row a { color: var(--lime); }
+        .consent-row.error {
+            border-color: var(--orange, #ff5c35);
+            background: rgba(255,92,53,0.06);
+            animation: consent-shake 0.4s ease;
+        }
+        .consent-error-msg {
+            display: none;
+            max-width: 480px;
+            margin: 0.4rem auto 0;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--orange, #ff5c35);
+            text-align: center;
+            letter-spacing: 0.04em;
+        }
+        .consent-error-msg.visible { display: block; }
+        @keyframes consent-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
         .cta-primary {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -778,10 +823,11 @@
                 <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
                 <button type="submit" id="submitBtn">Continue</button>
             </form>
-            <label style="display:flex; align-items:flex-start; gap:0.5rem; margin-top:0.75rem; font-size:0.7rem; color:var(--text-dim); max-width:480px; cursor:pointer; line-height:1.4;">
-                <input type="checkbox" id="consentCheck" required style="margin-top:2px; accent-color:var(--lime);">
-                <span>I agree to the <a href="/datenschutz" style="color:var(--lime);">Datenschutzerklärung</a> / <a href="/privacy" style="color:var(--lime);">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
+            <label class="consent-row" id="consentRow1">
+                <input type="checkbox" id="consentCheck" required>
+                <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
             </label>
+            <div class="consent-error-msg" id="consentError1">Please tick the consent box to continue.</div>
 
             <!-- Step 2: survey -->
             <div class="survey-step" id="surveyStep">
@@ -945,10 +991,11 @@
                 <input type="email" id="emailInput2" placeholder="your@email.com" required autocomplete="email">
                 <button type="submit">Notify Me</button>
             </form>
-            <label style="display:flex; align-items:flex-start; gap:0.5rem; margin-top:0.75rem; font-size:0.7rem; color:var(--text-dim); max-width:480px; cursor:pointer; line-height:1.4;">
-                <input type="checkbox" id="consentCheck2" required style="margin-top:2px; accent-color:var(--lime);">
-                <span>I agree to the <a href="/datenschutz" style="color:var(--lime);">Datenschutzerklärung</a> / <a href="/privacy" style="color:var(--lime);">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
+            <label class="consent-row" id="consentRow2">
+                <input type="checkbox" id="consentCheck2" required>
+                <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
             </label>
+            <div class="consent-error-msg" id="consentError2">Please tick the consent box to continue.</div>
         </section>
 
         <!-- Footer -->
@@ -988,16 +1035,41 @@
             document.getElementById('formNote').style.display = 'none';
         }
 
+        // Show / clear inline consent error
+        function flagConsentError(rowId, msgId) {
+            const row = document.getElementById(rowId);
+            const msg = document.getElementById(msgId);
+            row.classList.remove('error'); // restart animation
+            void row.offsetWidth;
+            row.classList.add('error');
+            msg.classList.add('visible');
+            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            row.querySelector('input[type="checkbox"]').focus();
+        }
+        function clearConsentError(rowId, msgId) {
+            document.getElementById(rowId).classList.remove('error');
+            document.getElementById(msgId).classList.remove('visible');
+        }
+        // Auto-clear when user ticks the box
+        document.getElementById('consentCheck').addEventListener('change', () => {
+            if (document.getElementById('consentCheck').checked) clearConsentError('consentRow1', 'consentError1');
+        });
+        document.getElementById('consentCheck2').addEventListener('change', () => {
+            if (document.getElementById('consentCheck2').checked) clearConsentError('consentRow2', 'consentError2');
+        });
+
         // Step 1: capture email, show survey
         document.getElementById('waitlistForm').addEventListener('submit', (e) => {
             e.preventDefault();
             if (!document.getElementById('consentCheck').checked) {
-                document.getElementById('consentCheck').focus();
+                flagConsentError('consentRow1', 'consentError1');
                 return;
             }
+            clearConsentError('consentRow1', 'consentError1');
             _pendingEmail = document.getElementById('emailInput').value;
             document.getElementById('waitlistForm').style.display = 'none';
             document.getElementById('formNote').style.display = 'none';
+            document.getElementById('consentRow1').style.display = 'none';
             document.getElementById('surveyStep').classList.add('active');
         });
 
@@ -1032,9 +1104,10 @@
         document.getElementById('waitlistForm2').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!document.getElementById('consentCheck2').checked) {
-                document.getElementById('consentCheck2').focus();
+                flagConsentError('consentRow2', 'consentError2');
                 return;
             }
+            clearConsentError('consentRow2', 'consentError2');
             const form = document.getElementById('waitlistForm2');
             const email = document.getElementById('emailInput2').value;
             const btn = form.querySelector('button');
