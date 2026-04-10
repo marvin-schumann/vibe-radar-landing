@@ -773,6 +773,639 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ══════════════════════════════════════════
+           NEW HERO — SoundCloud URL capture
+           ══════════════════════════════════════════ */
+        .hero-new {
+            padding: 3rem 0 4rem;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        @media (min-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1.15fr 0.85fr;
+                gap: 3rem;
+            }
+            .hero-new { padding: 4rem 0 5rem; }
+        }
+        .hero-copy { text-align: center; }
+        @media (min-width: 900px) {
+            .hero-copy { text-align: left; }
+        }
+        .hero-copy h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 6vw, 4.6rem);
+            line-height: 1.02;
+            letter-spacing: 0.03em;
+            margin-bottom: 1.2rem;
+        }
+        .hero-copy h1 .accent { color: var(--lime); }
+        .hero-copy .hero-sub {
+            font-size: 1rem;
+            color: var(--text-dim);
+            max-width: 520px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        @media (min-width: 900px) {
+            .hero-copy .hero-sub { margin-left: 0; margin-right: 0; }
+        }
+        @media (max-width: 899px) {
+            .hero-copy .hero-sub { margin-left: auto; margin-right: auto; }
+        }
+
+        /* Scrape form */
+        .scrape-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        @media (min-width: 900px) {
+            .scrape-form { margin: 0; }
+        }
+        .scrape-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: var(--radius);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .scrape-input-wrap:focus-within {
+            border-color: var(--lime);
+            box-shadow: 0 0 0 3px rgba(196,241,53,0.08);
+        }
+        .scrape-input-prefix {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            padding-left: 1rem;
+            user-select: none;
+            display: none;
+        }
+        @media (min-width: 480px) {
+            .scrape-input-prefix { display: block; }
+        }
+        .scrape-input {
+            flex: 1;
+            padding: 1rem 1.1rem;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            min-width: 0;
+        }
+        .scrape-input::placeholder { color: var(--text-faint); }
+        .scrape-submit {
+            width: 100%;
+            padding: 1.05rem 1.8rem;
+            background: var(--lime);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--bg);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .scrape-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(196,241,53,0.22);
+        }
+        .scrape-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .scrape-note {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.04em;
+            color: var(--text-faint);
+            line-height: 1.55;
+            margin-top: 0.15rem;
+            text-align: center;
+        }
+        @media (min-width: 900px) {
+            .scrape-note { text-align: left; }
+        }
+        .scrape-note a { color: var(--text-dim); text-decoration: underline; }
+        .scrape-note a:hover { color: var(--lime); }
+        .scrape-error {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--orange);
+            padding: 0.6rem 0.85rem;
+            border: 1px solid rgba(255,92,53,0.3);
+            border-radius: var(--radius);
+            background: rgba(255,92,53,0.06);
+            margin-top: 0.25rem;
+        }
+        .scrape-error.visible { display: block; }
+
+        /* Fallback waitlist toggle */
+        .fallback-toggle {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-faint);
+        }
+        @media (min-width: 900px) {
+            .fallback-toggle { text-align: left; }
+        }
+        .fallback-toggle button {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.04em;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+        }
+        .fallback-toggle button:hover { color: var(--lime); }
+        .waitlist-fallback { display: none; margin-top: 1.25rem; }
+        .waitlist-fallback.open { display: block; }
+
+        /* Sample card carousel */
+        .sample-stage {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            aspect-ratio: 3 / 4;
+        }
+        @media (min-width: 900px) {
+            .sample-stage { margin: 0 auto; max-width: 340px; }
+        }
+        .sample-card {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            opacity: 0;
+            transform: translateY(20px) scale(0.97);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            overflow: hidden;
+        }
+        .sample-card.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .sample-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 0%, rgba(196,241,53,0.08), transparent 60%);
+            pointer-events: none;
+        }
+        .sample-char {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+            color: var(--lime);
+            line-height: 1;
+        }
+        .sample-alt {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.08em;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            margin-top: -0.3rem;
+        }
+        .sample-avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(196,241,53,0.18), rgba(255,92,53,0.12));
+            border: 1px solid rgba(196,241,53,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--lime);
+            margin-top: 0.3rem;
+        }
+        .sample-line {
+            font-family: var(--font-body);
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            border-left: 2px solid var(--lime);
+            padding-left: 0.75rem;
+        }
+        .sample-headline {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.45;
+            margin-top: auto;
+        }
+        .sample-headline .hl { color: var(--lime); font-weight: 600; }
+        .sample-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+        .sample-meta .match { color: var(--lime); }
+
+        /* ══════════════════════════════════════════
+           SCRAPE SHOW — full-screen overlay
+           ══════════════════════════════════════════ */
+        .scrape-show {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        .scrape-show.open {
+            display: flex;
+        }
+        .scrape-show::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(196,241,53,0.08), transparent 55%),
+                radial-gradient(circle at 50% 100%, rgba(255,92,53,0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .scrape-stage {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            text-align: center;
+            color: var(--text);
+            z-index: 1;
+        }
+        .scrape-scene {
+            display: none;
+            animation: scene-in 0.6s ease;
+        }
+        .scrape-scene.active { display: block; }
+        @keyframes scene-in {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .scene-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--lime);
+            margin-bottom: 1.2rem;
+        }
+        .scene-big {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.5rem;
+        }
+        .scene-big .accent { color: var(--lime); }
+        .scene-sub {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            min-height: 1.4em;
+            transition: opacity 0.25s;
+        }
+
+        /* Waveform */
+        .waveform {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 5px;
+            height: 54px;
+            margin: 1.5rem auto 0;
+        }
+        .waveform span {
+            display: block;
+            width: 4px;
+            background: var(--lime);
+            border-radius: 2px;
+            animation: wave 1.2s ease-in-out infinite;
+            transform-origin: bottom;
+        }
+        .waveform span:nth-child(1) { animation-delay: 0.00s; }
+        .waveform span:nth-child(2) { animation-delay: 0.08s; }
+        .waveform span:nth-child(3) { animation-delay: 0.16s; }
+        .waveform span:nth-child(4) { animation-delay: 0.24s; }
+        .waveform span:nth-child(5) { animation-delay: 0.32s; }
+        .waveform span:nth-child(6) { animation-delay: 0.40s; }
+        .waveform span:nth-child(7) { animation-delay: 0.48s; }
+        .waveform span:nth-child(8) { animation-delay: 0.56s; }
+        .waveform span:nth-child(9) { animation-delay: 0.64s; }
+        .waveform span:nth-child(10){ animation-delay: 0.72s; }
+        .waveform span:nth-child(11){ animation-delay: 0.80s; }
+        .waveform span:nth-child(12){ animation-delay: 0.88s; }
+        @keyframes wave {
+            0%, 100% { height: 10%; opacity: 0.4; }
+            50%      { height: 100%; opacity: 1; }
+        }
+
+        /* Stat rotator */
+        .stat-rotator {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            color: var(--text);
+            margin-top: 1.5rem;
+            min-height: 1.6em;
+        }
+        .stat-rotator .num {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            color: var(--lime);
+            margin-right: 0.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* Event placeholder cards for scene 4 */
+        .event-queue {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: 1.8rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .event-slot {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+        .event-slot.in { opacity: 1; transform: translateX(0); }
+        .event-slot .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--lime);
+            border-radius: 50%;
+            margin-right: 0.6rem;
+        }
+        .event-slot .left { display: flex; align-items: center; }
+
+        /* Scene 5 — reveal */
+        .reveal-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            line-height: 1.05;
+            letter-spacing: 0.03em;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+        .reveal-headline .hl { color: var(--lime); }
+        .reveal-character {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 2rem;
+        }
+        .reveal-char-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+            color: var(--lime);
+        }
+        .reveal-char-alt {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--text-faint);
+            text-transform: uppercase;
+        }
+        .reveal-voice {
+            font-family: var(--font-body);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            max-width: 440px;
+            margin: 0.5rem auto 0;
+            line-height: 1.5;
+        }
+        .reveal-events {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-width: 480px;
+            margin: 0 auto 2rem;
+            text-align: left;
+        }
+        .reveal-event {
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: var(--radius);
+            padding: 1rem 1.1rem;
+            position: relative;
+        }
+        .reveal-event .ev-name {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            letter-spacing: 0.04em;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+        .reveal-event .ev-meta {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+        }
+        .reveal-event .ev-match {
+            position: absolute;
+            top: 0.85rem;
+            right: 1.1rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--lime);
+            font-weight: 700;
+        }
+        .reveal-event.blurred { position: relative; overflow: hidden; }
+        .reveal-event.blurred .ev-name,
+        .reveal-event.blurred .ev-meta,
+        .reveal-event.blurred .ev-match {
+            filter: blur(6px);
+            user-select: none;
+            pointer-events: none;
+        }
+        .reveal-event.blurred::after {
+            content: "LOCKED";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--lime);
+            background: rgba(12,12,12,0.7);
+            padding: 0.35rem 0.8rem;
+            border: 1px solid rgba(196,241,53,0.3);
+            border-radius: var(--radius);
+        }
+
+        .reveal-email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+        .reveal-email-form .lead {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .reveal-email-form input {
+            padding: 0.95rem 1.1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-bright);
+            border-radius: var(--radius);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+        .reveal-email-form input:focus { border-color: var(--lime); }
+        .reveal-email-form button {
+            padding: 1rem 1.5rem;
+            background: var(--lime);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--bg);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .reveal-email-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(196,241,53,0.2);
+        }
+        .reveal-email-form .mini-consent {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.04em;
+            color: var(--text-faint);
+            line-height: 1.5;
+            text-align: left;
+        }
+        .reveal-email-form .mini-consent a { color: var(--text-dim); text-decoration: underline; }
+
+        .scrape-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            background: none;
+            border: 1px solid var(--border-bright);
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: color 0.25s, border-color 0.25s;
+            z-index: 2;
+        }
+        .scrape-close:hover {
+            color: var(--lime);
+            border-color: var(--lime);
+        }
+
+        /* Scrape show — error state */
+        .scrape-fail {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        .scrape-fail.active { display: flex; }
+        .scrape-fail h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 0.04em;
+            color: var(--orange);
+        }
+        .scrape-fail p {
+            font-family: var(--font-body);
+            color: var(--text-dim);
+            max-width: 440px;
+            font-size: 0.95rem;
+        }
+        .scrape-fail button {
+            padding: 0.8rem 1.6rem;
+            background: transparent;
+            border: 1px solid var(--lime);
+            color: var(--lime);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+        .scrape-fail button:hover { background: rgba(196,241,53,0.08); }
     </style>
 </head>
 <body>
@@ -793,41 +1426,121 @@
                 </div>
                 <span class="logo-text">Frequenz</span>
             </a>
-            <a href="#waitlistForm" class="cta-nav" data-scroll-to="emailInput">Join Waitlist</a>
+            <a href="#scrapeForm" class="cta-nav" data-scroll-to="scrapeUrlInput">Read My Taste</a>
         </nav>
 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Early access opening soon
+        <!-- Hero (new SoundCloud URL capture) -->
+        <section class="hero-new">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-badge" style="margin-bottom: 1.5rem;">
+                        <span class="dot"></span>
+                        No signup. No app. Just paste.
+                    </div>
+
+                    <h1>
+                        Your SoundCloud likes<br>
+                        <span class="accent">parties you'd actually go to.</span>
+                    </h1>
+
+                    <p class="hero-sub">
+                        We read your taste in 15 seconds. No signup, no app, no bullshit.
+                    </p>
+
+                    <form class="scrape-form" id="scrapeForm" novalidate>
+                        <div class="scrape-input-wrap">
+                            <span class="scrape-input-prefix">https://</span>
+                            <input
+                                type="text"
+                                id="scrapeUrlInput"
+                                class="scrape-input"
+                                placeholder="soundcloud.com/yourname"
+                                autocomplete="off"
+                                autocapitalize="none"
+                                spellcheck="false"
+                                required>
+                        </div>
+                        <button type="submit" class="scrape-submit" id="scrapeSubmitBtn">Read my taste</button>
+                        <p class="scrape-note">
+                            We use your public profile only. No login required. By pasting your URL you consent to us reading your public SoundCloud profile. See <a href="/datenschutz">Datenschutz</a>.
+                        </p>
+                        <div class="scrape-error" id="scrapeInlineError"></div>
+                    </form>
+
+                    <div class="fallback-toggle">
+                        Don't have a SoundCloud?
+                        <button type="button" id="fallbackToggle">Join the email waitlist instead</button>
+                    </div>
+                </div>
+
+                <div class="sample-stage" aria-hidden="true">
+                    <div class="sample-card active" data-sample="0">
+                        <div>
+                            <div class="sample-char">BUNKER BEAR</div>
+                            <div class="sample-alt">Betonhund</div>
+                        </div>
+                        <div class="sample-avatar">&#x2691;</div>
+                        <div class="sample-line">"Bunker Bear hasn't seen sunlight since Klubnacht."</div>
+                        <div class="sample-headline">You've liked <span class="hl">11 tracks</span> from Giegling residents.</div>
+                        <div class="sample-meta">
+                            <span>Berghain &middot; Sat 02:00</span>
+                            <span class="match">94% match</span>
+                        </div>
+                    </div>
+                    <div class="sample-card" data-sample="1">
+                        <div>
+                            <div class="sample-char">DUB FOX</div>
+                            <div class="sample-alt">Basskind</div>
+                        </div>
+                        <div class="sample-avatar">&#x2625;</div>
+                        <div class="sample-line">"Dub Fox runs on Red Stripe and low-end theory."</div>
+                        <div class="sample-headline">You share <span class="hl">23 artists</span> with the Loefah circle.</div>
+                        <div class="sample-meta">
+                            <span>Razzmatazz &middot; Fri 00:30</span>
+                            <span class="match">89% match</span>
+                        </div>
+                    </div>
+                    <div class="sample-card" data-sample="2">
+                        <div>
+                            <div class="sample-char">VINYL OWL</div>
+                            <div class="sample-alt">Plattenschleiche</div>
+                        </div>
+                        <div class="sample-avatar">&#x260D;</div>
+                        <div class="sample-line">"Vinyl Owl only trusts sets mixed on two Technics."</div>
+                        <div class="sample-headline">Your library overlaps <span class="hl">34 labels</span> with Ostgut Ton.</div>
+                        <div class="sample-meta">
+                            <span>Mondo Disko &middot; Sat 01:00</span>
+                            <span class="match">91% match</span>
+                        </div>
+                    </div>
+                    <div class="sample-card" data-sample="3">
+                        <div>
+                            <div class="sample-char">RAVE MOTH</div>
+                            <div class="sample-alt">Stroboskopfalter</div>
+                        </div>
+                        <div class="sample-avatar">&#x2736;</div>
+                        <div class="sample-line">"Rave Moth pulls towards the hardest lights in the room."</div>
+                        <div class="sample-headline"><span class="hl">87% of your likes</span> come from labels under 5k followers.</div>
+                        <div class="sample-meta">
+                            <span>Nitsa &middot; Sat 03:00</span>
+                            <span class="match">96% match</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <h1>
-                Never miss a DJ<br>
-                <span class="accent">you actually listen to</span>
-            </h1>
-
-            <p class="hero-sub">
-                Connect your SoundCloud. We match your music taste to upcoming events in your city — from headline acts to underground sets.
-            </p>
-
-            <!-- Primary CTA: go to app -->
-            <div style="margin-bottom: 2rem;">
-                <a href="#waitlistForm" class="cta-primary" data-scroll-to="emailInput">Join the Waitlist</a>
-            </div>
-
-            <!-- Secondary: email capture -->
-            <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll notify you</p>
-            <form class="waitlist-form" id="waitlistForm">
-                <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
-                <button type="submit" id="submitBtn">Continue</button>
-            </form>
-            <label class="consent-row" id="consentRow1">
-                <input type="checkbox" id="consentCheck" required>
-                <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
-            </label>
-            <div class="consent-error-msg" id="consentError1">Please tick the consent box to continue.</div>
+            <!-- Existing Formspree waitlist form — kept as fallback, hidden by default -->
+            <div class="waitlist-fallback" id="waitlistFallback">
+                <p class="form-note" style="margin: 2rem auto 0.75rem; color: var(--text-dim); font-size: 0.75rem; text-align: center;">Leave your email and we'll notify you when we're ready.</p>
+                <form class="waitlist-form" id="waitlistForm">
+                    <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
+                    <button type="submit" id="submitBtn">Continue</button>
+                </form>
+                <label class="consent-row" id="consentRow1">
+                    <input type="checkbox" id="consentCheck" required>
+                    <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Formspree (USA) under the EU-US Data Privacy Framework.</span>
+                </label>
+                <div class="consent-error-msg" id="consentError1">Please tick the consent box to continue.</div>
 
             <!-- Step 2: survey -->
             <div class="survey-step" id="surveyStep">
@@ -873,6 +1586,7 @@
                 You're on the list. We'll be in touch.
             </div>
             <p class="form-note" id="formNote">Free to use. No spam. Unsubscribe anytime.</p>
+            </div><!-- /.waitlist-fallback -->
 
             <div class="social-proof fade-up">
                 <div class="proof-stat">
@@ -1004,6 +1718,75 @@
         </footer>
     </div>
 
+    <!-- ═══════════════════════════════
+         SCRAPE SHOW — full-screen overlay
+         ═══════════════════════════════ -->
+    <div class="scrape-show" id="scrapeShow" aria-hidden="true">
+        <button type="button" class="scrape-close" id="scrapeCloseBtn">Cancel</button>
+        <div class="scrape-stage">
+            <!-- Scene 1 -->
+            <div class="scrape-scene active" id="scene1">
+                <div class="scene-label">// Reading SoundCloud</div>
+                <div class="scene-big">Reading your<br><span class="accent">SoundCloud...</span></div>
+                <div class="waveform">
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+            <!-- Scene 2 -->
+            <div class="scrape-scene" id="scene2">
+                <div class="scene-label">// Scanning your library</div>
+                <div class="scene-big"><span class="accent">Digging</span> through your taste</div>
+                <div class="stat-rotator" id="statRotator">
+                    <span class="num">0</span><span class="stat-label">likes scanned</span>
+                </div>
+            </div>
+            <!-- Scene 3 -->
+            <div class="scrape-scene" id="scene3">
+                <div class="scene-label">// Matching signal</div>
+                <div class="scene-big">Finding your<br><span class="accent">tribe...</span></div>
+                <div class="scene-sub" id="tribeLine">Berlin underground: strong signal</div>
+            </div>
+            <!-- Scene 4 -->
+            <div class="scrape-scene" id="scene4">
+                <div class="scene-label">// Matching events</div>
+                <div class="scene-big">Matching <span class="accent">events</span></div>
+                <div class="event-queue" id="eventQueue">
+                    <div class="event-slot"><span class="left"><span class="dot"></span>Loading</span><span>--%</span></div>
+                    <div class="event-slot"><span class="left"><span class="dot"></span>Loading</span><span>--%</span></div>
+                    <div class="event-slot"><span class="left"><span class="dot"></span>Loading</span><span>--%</span></div>
+                    <div class="event-slot"><span class="left"><span class="dot"></span>Loading</span><span>--%</span></div>
+                    <div class="event-slot"><span class="left"><span class="dot"></span>Loading</span><span>--%</span></div>
+                </div>
+            </div>
+            <!-- Scene 5: reveal -->
+            <div class="scrape-scene" id="scene5">
+                <div class="reveal-headline" id="revealHeadline">Your taste is <span class="hl">uncanny</span>.</div>
+                <div class="reveal-character">
+                    <div class="reveal-char-name" id="revealCharName">BUNKER BEAR</div>
+                    <div class="reveal-char-alt" id="revealCharAlt">Betonhund</div>
+                    <div class="reveal-voice" id="revealVoice">Bunker Bear hasn't seen sunlight since Klubnacht.</div>
+                </div>
+                <div class="reveal-events" id="revealEvents"></div>
+                <form class="reveal-email-form" id="revealEmailForm">
+                    <div class="lead">Want the other 4 events? Drop your email.</div>
+                    <input type="email" id="revealEmailInput" placeholder="your@email.com" required autocomplete="email">
+                    <button type="submit">Send me the full list</button>
+                    <div class="mini-consent">
+                        By continuing you agree to our <a href="/datenschutz">Datenschutz</a> / <a href="/privacy">Privacy Policy</a>. Your email is processed by Formspree (USA) under the EU-US Data Privacy Framework.
+                    </div>
+                </form>
+            </div>
+            <!-- Failure state -->
+            <div class="scrape-fail" id="scrapeFail">
+                <h3 id="scrapeFailTitle">Couldn't read that profile</h3>
+                <p id="scrapeFailMsg">Looks like your SoundCloud profile is private or the URL is off. Make it public or try a different link.</p>
+                <button type="button" id="scrapeFailRetry">Try again</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ── Scroll animations ──
         const observer = new IntersectionObserver((entries) => {
@@ -1015,6 +1798,353 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ══════════════════════════════════════════
+        // SAMPLE CARD ROTATOR (hero right-side)
+        // ══════════════════════════════════════════
+        (function sampleRotator() {
+            const cards = document.querySelectorAll('.sample-card');
+            if (cards.length < 2) return;
+            let i = 0;
+            setInterval(() => {
+                cards[i].classList.remove('active');
+                i = (i + 1) % cards.length;
+                cards[i].classList.add('active');
+            }, 3500);
+        })();
+
+        // ══════════════════════════════════════════
+        // FALLBACK TOGGLE (show old email waitlist)
+        // ══════════════════════════════════════════
+        (function fallbackToggle() {
+            const btn = document.getElementById('fallbackToggle');
+            const box = document.getElementById('waitlistFallback');
+            if (!btn || !box) return;
+            btn.addEventListener('click', () => {
+                box.classList.toggle('open');
+                if (box.classList.contains('open')) {
+                    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const emailInput = document.getElementById('emailInput');
+                    if (emailInput) setTimeout(() => emailInput.focus(), 400);
+                }
+            });
+        })();
+
+        // ══════════════════════════════════════════
+        // SCRAPE SHOW — submit + polling + scenes
+        // ══════════════════════════════════════════
+        const SCRAPE_API_BASE = 'https://app.frequenz.live/api';
+        const SCRAPE_POLL_INTERVAL_MS = 500;
+        const SCRAPE_MAX_POLL_MS = 90000; // 90s hard stop
+
+        const tribeLines = [
+            'Berlin underground: strong signal',
+            'Minimal bridge to dub techno detected',
+            'Heavy overlap with Giegling residents',
+            'Your likes skew 78% under 5k followers',
+            'Ostgut Ton / Ilian Tape axis detected',
+            'Peak time: Saturday 02:00-05:00',
+        ];
+
+        let scrapePollTimer = null;
+        let scrapePollStartTs = 0;
+        let sceneTimers = [];
+        let currentTaskId = null;
+        let lastProgress = { likes_scanned: 0, reposts_scanned: 0, unique_artists: 0 };
+
+        function clearScrapeTimers() {
+            if (scrapePollTimer) { clearTimeout(scrapePollTimer); scrapePollTimer = null; }
+            sceneTimers.forEach(t => clearTimeout(t));
+            sceneTimers = [];
+        }
+
+        function showScene(id) {
+            document.querySelectorAll('.scrape-scene').forEach(s => s.classList.remove('active'));
+            document.getElementById('scrapeFail').classList.remove('active');
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+        function openScrapeShow() {
+            const show = document.getElementById('scrapeShow');
+            show.classList.add('open');
+            show.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            showScene('scene1');
+        }
+
+        function closeScrapeShow() {
+            const show = document.getElementById('scrapeShow');
+            show.classList.remove('open');
+            show.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            clearScrapeTimers();
+            currentTaskId = null;
+            // Reset event slots
+            document.querySelectorAll('#eventQueue .event-slot').forEach(s => s.classList.remove('in'));
+            // Reset submit button
+            const btn = document.getElementById('scrapeSubmitBtn');
+            if (btn) { btn.disabled = false; btn.textContent = 'Read my taste'; }
+        }
+
+        function showScrapeFail(title, msg) {
+            clearScrapeTimers();
+            document.querySelectorAll('.scrape-scene').forEach(s => s.classList.remove('active'));
+            document.getElementById('scrapeFailTitle').textContent = title;
+            document.getElementById('scrapeFailMsg').textContent = msg;
+            document.getElementById('scrapeFail').classList.add('active');
+        }
+
+        function updateStatRotator(progress) {
+            const rotator = document.getElementById('statRotator');
+            if (!rotator) return;
+            // Cycle between 4 stat views based on time
+            const views = [
+                { num: progress.likes_scanned || 0, label: 'likes scanned' },
+                { num: progress.reposts_scanned || 0, label: 'reposts found' },
+                { num: progress.unique_artists || 0, label: 'unique artists' },
+                { num: Math.max(1, Math.round((progress.unique_artists || 0) * 0.18)), label: 'labels detected' },
+            ];
+            const idx = Math.floor(Date.now() / 800) % views.length;
+            const v = views[idx];
+            rotator.innerHTML = '<span class="num">' + v.num + '</span>' + v.label;
+        }
+
+        function rotateTribeLine() {
+            const el = document.getElementById('tribeLine');
+            if (!el) return;
+            let idx = 0;
+            const tick = () => {
+                el.style.opacity = '0';
+                const t = setTimeout(() => {
+                    idx = (idx + 1) % tribeLines.length;
+                    el.textContent = tribeLines[idx];
+                    el.style.opacity = '1';
+                    const t2 = setTimeout(tick, 1400);
+                    sceneTimers.push(t2);
+                }, 220);
+                sceneTimers.push(t);
+            };
+            el.textContent = tribeLines[0];
+            el.style.opacity = '1';
+            const t0 = setTimeout(tick, 1400);
+            sceneTimers.push(t0);
+        }
+
+        function slideInEventSlots() {
+            const slots = document.querySelectorAll('#eventQueue .event-slot');
+            slots.forEach(s => s.classList.remove('in'));
+            slots.forEach((s, i) => {
+                const t = setTimeout(() => s.classList.add('in'), i * 280);
+                sceneTimers.push(t);
+            });
+        }
+
+        function scheduleScenes() {
+            // Scene 1: 0-3s (already shown)
+            // Scene 2: 3s
+            sceneTimers.push(setTimeout(() => {
+                showScene('scene2');
+                // Update stat rotator every 250ms so it feels alive
+                const tick = () => {
+                    updateStatRotator(lastProgress);
+                    const t = setTimeout(tick, 250);
+                    sceneTimers.push(t);
+                };
+                tick();
+            }, 3000));
+            // Scene 3: 6s
+            sceneTimers.push(setTimeout(() => {
+                showScene('scene3');
+                rotateTribeLine();
+            }, 6000));
+            // Scene 4: 10s
+            sceneTimers.push(setTimeout(() => {
+                showScene('scene4');
+                slideInEventSlots();
+            }, 10000));
+        }
+
+        function renderReveal(result) {
+            document.getElementById('revealHeadline').innerHTML = escapeHtml(result.uncanny_headline || 'Your taste is uncanny.');
+            document.getElementById('revealCharName').textContent = result.character_name || '';
+            document.getElementById('revealCharAlt').textContent = result.character_alt || '';
+            document.getElementById('revealVoice').textContent = result.voice_line || '';
+
+            const list = document.getElementById('revealEvents');
+            list.innerHTML = '';
+            const events = Array.isArray(result.events) ? result.events.slice(0, 5) : [];
+            events.forEach((ev, i) => {
+                const blurred = ev.blurred === true || i >= 1;
+                const div = document.createElement('div');
+                div.className = 'reveal-event' + (blurred ? ' blurred' : '');
+                div.innerHTML =
+                    '<div class="ev-name">' + escapeHtml(ev.name || '') + '</div>' +
+                    '<div class="ev-meta">' + escapeHtml(ev.venue || '') + ' &middot; ' + escapeHtml(ev.date || '') + '</div>' +
+                    '<div class="ev-match">' + (ev.match_score != null ? ev.match_score + '%' : '--') + '</div>';
+                list.appendChild(div);
+            });
+            showScene('scene5');
+        }
+
+        function escapeHtml(s) {
+            if (s == null) return '';
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        async function pollTask(taskId) {
+            if (taskId !== currentTaskId) return; // superseded/cancelled
+            const elapsed = Date.now() - scrapePollStartTs;
+            if (elapsed > SCRAPE_MAX_POLL_MS) {
+                showScrapeFail('This is taking too long', 'The scan timed out. Try again in a minute.');
+                return;
+            }
+            try {
+                const r = await fetch(SCRAPE_API_BASE + '/scan/' + encodeURIComponent(taskId), { method: 'GET' });
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                const data = await r.json();
+                if (taskId !== currentTaskId) return;
+                if (data.progress) lastProgress = Object.assign(lastProgress, data.progress);
+                if (data.status === 'done' && data.result) {
+                    // Wait until at least scene 4 has shown (visual minimum ~11s) before revealing
+                    const minRevealMs = 11000;
+                    const waitMore = Math.max(0, minRevealMs - elapsed);
+                    sceneTimers.push(setTimeout(() => renderReveal(data.result), waitMore));
+                    return;
+                }
+                if (data.status === 'failed') {
+                    showScrapeFail('Scan failed', 'We couldn\'t read that profile. Make sure it\'s public and try again.');
+                    return;
+                }
+                scrapePollTimer = setTimeout(() => pollTask(taskId), SCRAPE_POLL_INTERVAL_MS);
+            } catch (err) {
+                console.error('Poll error:', err);
+                // Retry a few times before bailing
+                scrapePollTimer = setTimeout(() => pollTask(taskId), SCRAPE_POLL_INTERVAL_MS * 2);
+            }
+        }
+
+        function normalizeSoundcloudUrl(raw) {
+            let v = (raw || '').trim();
+            if (!v) return null;
+            // Strip leading @
+            v = v.replace(/^@/, '');
+            // If it has no protocol and looks like a bare handle, prefix domain
+            if (!/^https?:\/\//i.test(v) && !/^soundcloud\.com/i.test(v)) {
+                // Plain username like "marvinschumann"
+                if (/^[a-z0-9][a-z0-9_\-]{1,63}$/i.test(v)) {
+                    return 'https://soundcloud.com/' + v;
+                }
+            }
+            if (!/^https?:\/\//i.test(v)) v = 'https://' + v;
+            // Must be a soundcloud URL
+            try {
+                const u = new URL(v);
+                if (!/soundcloud\.com$/i.test(u.hostname.replace(/^www\./, ''))) return null;
+                return u.href;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function showInlineScrapeError(msg) {
+            const el = document.getElementById('scrapeInlineError');
+            el.textContent = msg;
+            el.classList.add('visible');
+        }
+        function clearInlineScrapeError() {
+            const el = document.getElementById('scrapeInlineError');
+            el.textContent = '';
+            el.classList.remove('visible');
+        }
+
+        document.getElementById('scrapeUrlInput').addEventListener('input', clearInlineScrapeError);
+
+        document.getElementById('scrapeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearInlineScrapeError();
+            const raw = document.getElementById('scrapeUrlInput').value;
+            const normalized = normalizeSoundcloudUrl(raw);
+            if (!normalized) {
+                showInlineScrapeError('That doesn\'t look like a SoundCloud URL. Try soundcloud.com/yourname');
+                return;
+            }
+            const btn = document.getElementById('scrapeSubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Starting...';
+
+            // Open overlay + start visual timeline immediately (don't wait for API)
+            openScrapeShow();
+            scrapePollStartTs = Date.now();
+            scheduleScenes();
+
+            try {
+                const r = await fetch(SCRAPE_API_BASE + '/scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ soundcloud_url: normalized }),
+                });
+                if (!r.ok) {
+                    const text = await r.text().catch(() => '');
+                    if (r.status === 403 || r.status === 404 || /private/i.test(text)) {
+                        showScrapeFail('That profile is private', 'We can only read public SoundCloud profiles. Flip yours to public and try again.');
+                    } else if (r.status === 400) {
+                        showScrapeFail('Invalid URL', 'That URL didn\'t look right to us. Double-check and try again.');
+                    } else {
+                        showScrapeFail('Scan failed', 'Something went wrong on our side. Try again in a moment.');
+                    }
+                    return;
+                }
+                const data = await r.json();
+                if (!data.task_id) {
+                    showScrapeFail('Scan failed', 'We couldn\'t start the scan. Try again.');
+                    return;
+                }
+                currentTaskId = data.task_id;
+                scrapePollTimer = setTimeout(() => pollTask(currentTaskId), SCRAPE_POLL_INTERVAL_MS);
+            } catch (err) {
+                console.error('Scan start failed:', err);
+                showScrapeFail('Network error', 'Couldn\'t reach the scan server. Check your connection and try again.');
+            }
+        });
+
+        document.getElementById('scrapeCloseBtn').addEventListener('click', closeScrapeShow);
+        document.getElementById('scrapeFailRetry').addEventListener('click', closeScrapeShow);
+
+        // Reveal-email form — wire to Formspree for now (shares the existing waitlist endpoint)
+        document.getElementById('revealEmailForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('revealEmailInput');
+            const email = (input.value || '').trim();
+            if (!email) return;
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            try {
+                await fetch('https://formspree.io/f/mwvwvnpv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, source: 'frequenz-scrape-reveal', task_id: currentTaskId || '' }),
+                });
+                btn.textContent = 'Check your inbox';
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = 'Try again';
+            }
+        });
+
+        // Escape key closes the scrape show
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const show = document.getElementById('scrapeShow');
+                if (show && show.classList.contains('open')) closeScrapeShow();
+            }
+        });
 
         // ── Waitlist form handling ──
         const FORMSPREE_URL = 'https://formspree.io/f/mwvwvnpv';
