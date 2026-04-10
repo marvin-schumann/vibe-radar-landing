@@ -159,11 +159,25 @@
 
         <h2>2. Collection and Processing of Personal Data</h2>
 
-        <h3>Email Addresses (Waitlist)</h3>
-        <p>When you sign up for our waitlist, we collect your email address and — if you complete the optional survey — your city, event frequency, discovery method, frustration points, and willingness to pay. This data is used solely to notify you about the launch of Frequenz and to inform product development.</p>
-        <p>Recipient / processor: Formspree, Inc. (USA). See section 3.</p>
-        <p>Legal basis: Your consent pursuant to Art. 6(1)(a) GDPR. You may withdraw your consent at any time with effect for the future by emailing <a href="mailto:hello@frequenz.live">hello@frequenz.live</a>.</p>
-        <p>Retention period: Until the service launches or until you withdraw your consent, at most 24 months after your last interaction.</p>
+        <h3>SoundCloud Profile Analysis (public, no login required)</h3>
+        <p>When you enter your public SoundCloud profile URL on the homepage (e.g. <code>https://soundcloud.com/yourname</code>), our server reads the following data, which is publicly visible on your SoundCloud profile:</p>
+        <ul>
+            <li>Your "Likes" (favourited tracks)</li>
+            <li>Your "Reposts" (shared tracks)</li>
+            <li>The artists you follow</li>
+            <li>For each artist: their genres and play counts, where publicly listed</li>
+        </ul>
+        <p>This data is processed <strong>only on our server</strong> to compute your "Taste DNA" profile and your matched event recommendations. <strong>We do NOT log into your SoundCloud account.</strong> We use no OAuth tokens, no password, no private data. We only access what any visitor could see in their browser when visiting your public SoundCloud profile.</p>
+        <p>Legal basis: Art. 6(1)(f) GDPR (legitimate interest in providing a working recommendation feature). Because you actively enter the URL yourself, there is also implied consent under Art. 6(1)(a) GDPR.</p>
+        <p>Retention: Your scan result is held in our server's memory for at most 1 hour (so we can show you the result page). There is <strong>no permanent storage</strong> unless you actively create an account.</p>
+        <p>If you subsequently choose to create an account in order to save events or receive the weekly Monday Drop newsletter, your "Taste DNA" profile will be permanently linked to your account (see "Authentication and Account").</p>
+        <p>You can prevent this processing entirely by simply not entering a SoundCloud URL.</p>
+
+        <h3>Email Addresses (Waitlist &amp; Account)</h3>
+        <p>When you sign up for our waitlist or create an account, we collect your email address. Optionally — if you complete the waitlist survey — we also collect your city, event frequency, discovery method, frustration points, and willingness to pay. This data is used solely to inform you about the launch of Frequenz, send you the weekly Monday Drop newsletter, and inform product development.</p>
+        <p>Recipient / processor: Sendinblue SAS (Brevo), France. See section 3.</p>
+        <p>Legal basis: Your consent pursuant to Art. 6(1)(a) GDPR. You may withdraw your consent at any time with effect for the future by emailing <a href="mailto:hello@frequenz.live">hello@frequenz.live</a> or by using the unsubscribe link in any email we send.</p>
+        <p>Retention period: Until you withdraw your consent or delete your account, at most 24 months after your last interaction.</p>
 
         <h3>Server Log Files</h3>
         <p>Each time you access our website, the hosting provider automatically collects information in server log files. This includes:</p>
@@ -189,12 +203,19 @@
         <p>Legal basis: Art. 6(1)(f) GDPR (legitimate interest in operating a stable, performant website).</p>
         <p>Vercel privacy policy: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">https://vercel.com/legal/privacy-policy</a></p>
 
-        <h3>Formspree (Form Processing)</h3>
-        <p>Provider: Formspree, Inc., 2261 Market Street #4061, San Francisco, CA 94114, USA.</p>
-        <p>The waitlist form is processed via Formspree. Formspree receives your email address, optional survey responses (city, event habits, discovery method, frustration points, willingness to pay), and your IP address for form forwarding and spam protection.</p>
-        <p>Data transfer to the USA is based on the EU-US Data Privacy Framework (Commission adequacy decision of 10 July 2023, Art. 45(3) GDPR). Formspree is a certified member of the Framework.</p>
-        <p>A Data Processing Agreement (Art. 28 GDPR) is in place.</p>
-        <p>Formspree privacy policy: <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">https://formspree.io/legal/privacy-policy</a></p>
+        <h3>Brevo / Sendinblue (Email Marketing &amp; Waitlist Management)</h3>
+        <p>Provider: Sendinblue SAS (trading as "Brevo"), 106 Boulevard Haussmann, 75008 Paris, France.</p>
+        <p>The waitlist form is processed via Brevo. Brevo receives your email address, optional profile information (e.g. city), and signup metadata (timestamp, source, IP address for spam protection). Data is processed in Brevo's data centres within the European Union.</p>
+        <p>Sendinblue SAS is a French société anonyme directly subject to the GDPR. No data transfer to third countries outside the EEA takes place.</p>
+        <p>A Data Processing Agreement (Art. 28 GDPR) is in place. Brevo is ISO 27001 certified.</p>
+        <p>Brevo privacy policy: <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank" rel="noopener">https://www.brevo.com/legal/privacypolicy/</a></p>
+
+        <h3>Mailbox.org (Email Mailbox)</h3>
+        <p>Provider: Heinlein Support GmbH, Schwedter Straße 8/9 A, 10119 Berlin, Germany.</p>
+        <p>When you email <a href="mailto:hello@frequenz.live">hello@frequenz.live</a>, your message is processed on servers operated by Heinlein Support GmbH (Mailbox.org) in Berlin, Germany. Heinlein Support is a German company with German server locations and is directly subject to the GDPR.</p>
+        <p>Retention: until your request is resolved or until you ask us to delete the correspondence. Maximum retention 24 months.</p>
+        <p>Legal basis: Art. 6(1)(b) GDPR (pre-contractual measures) or Art. 6(1)(f) GDPR (legitimate interest in correspondence).</p>
+        <p>Mailbox.org privacy policy: <a href="https://mailbox.org/en/data-protection-declaration" target="_blank" rel="noopener">https://mailbox.org/en/data-protection-declaration</a></p>
 
         <h3>Supabase (App only)</h3>
         <p>Provider: Supabase, Inc., 970 Toa Payoh North #07-04, Singapore 318992 (headquarters); data processing in the EU region (Frankfurt).</p>
@@ -246,8 +267,9 @@
 
         <h2>8. Retention Periods</h2>
         <ul>
-            <li>Waitlist email addresses (at Formspree): until service launch or until you withdraw consent, at most 24 months after your last interaction</li>
-            <li>Survey responses (at Formspree): same as above</li>
+            <li>Waitlist email addresses (at Brevo): until service launch or until you withdraw consent, at most 24 months after your last interaction</li>
+            <li>Optional survey responses (at Brevo): same as above</li>
+            <li>Email correspondence (at Mailbox.org): until your request is resolved, at most 24 months</li>
             <li>Server log files (Vercel): 7 days</li>
             <li>Authentication data (app only): until account deletion, at latest 90 days after inactivity</li>
         </ul>
@@ -258,7 +280,7 @@
         <h2>10. Changes to This Privacy Policy</h2>
         <p>We reserve the right to update this privacy policy to reflect changes in legislation or in our service. The current version is always available on this page.</p>
 
-        <p style="margin-top: 2.5rem; color: var(--text-dim); font-size: 0.8rem;">Last updated: 10 April 2026</p>
+        <p style="margin-top: 2.5rem; color: var(--text-dim); font-size: 0.8rem;">Last updated: 10 April 2026 (Brevo / Mailbox.org migration)</p>
     </div>
 
     <footer>
