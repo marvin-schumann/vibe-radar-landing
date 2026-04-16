@@ -1455,6 +1455,7 @@
                                 id="scrapeUrlInput"
                                 class="scrape-input"
                                 placeholder="soundcloud.com/yourname"
+                                aria-label="Your SoundCloud profile URL"
                                 autocomplete="off"
                                 autocapitalize="none"
                                 spellcheck="false"
@@ -1533,7 +1534,7 @@
             <div class="waitlist-fallback" id="waitlistFallback">
                 <p class="form-note" style="margin: 2rem auto 0.75rem; color: var(--text-dim); font-size: 0.75rem; text-align: center;">Leave your email and we'll notify you when we're ready.</p>
                 <form class="waitlist-form" id="waitlistForm">
-                    <input type="email" id="emailInput" placeholder="your@email.com" required autocomplete="email">
+                    <input type="email" id="emailInput" placeholder="your@email.com" aria-label="Email address for waitlist" required autocomplete="email">
                     <button type="submit" id="submitBtn">Continue</button>
                 </form>
                 <label class="consent-row" id="consentRow1">
@@ -1702,7 +1703,7 @@
             </div>
             <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll notify you</p>
             <form class="waitlist-form" id="waitlistForm2">
-                <input type="email" id="emailInput2" placeholder="your@email.com" required autocomplete="email">
+                <input type="email" id="emailInput2" placeholder="your@email.com" aria-label="Email address for waitlist" required autocomplete="email">
                 <button type="submit">Notify Me</button>
             </form>
             <label class="consent-row" id="consentRow2">
@@ -1721,7 +1722,7 @@
     <!-- ═══════════════════════════════
          SCRAPE SHOW — full-screen overlay
          ═══════════════════════════════ -->
-    <div class="scrape-show" id="scrapeShow" aria-hidden="true">
+    <div class="scrape-show" id="scrapeShow" role="dialog" aria-modal="true" aria-label="Scanning your SoundCloud taste" aria-hidden="true">
         <button type="button" class="scrape-close" id="scrapeCloseBtn">Cancel</button>
         <div class="scrape-stage">
             <!-- Scene 1 -->
@@ -1966,7 +1967,7 @@
         }
 
         function renderReveal(result) {
-            document.getElementById('revealHeadline').innerHTML = escapeHtml(result.uncanny_headline || 'Your taste is uncanny.');
+            document.getElementById('revealHeadline').textContent = result.uncanny_headline || 'Your taste is uncanny.';
             document.getElementById('revealCharName').textContent = result.character_name || '';
             document.getElementById('revealCharAlt').textContent = result.character_alt || '';
             document.getElementById('revealVoice').textContent = result.voice_line || '';
