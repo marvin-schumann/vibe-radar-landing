@@ -2037,7 +2037,7 @@
             // If it has no protocol and looks like a bare handle, prefix domain
             if (!/^https?:\/\//i.test(v) && !/^soundcloud\.com/i.test(v)) {
                 // Plain username like "marvinschumann"
-                if (/^[a-z0-9][a-z0-9_\-]{1,63}$/i.test(v)) {
+                if (/^[a-z0-9][a-z0-9_.\-]{1,63}$/i.test(v)) {
                     return 'https://soundcloud.com/' + v;
                 }
             }
@@ -2116,7 +2116,7 @@
         document.getElementById('scrapeCloseBtn').addEventListener('click', closeScrapeShow);
         document.getElementById('scrapeFailRetry').addEventListener('click', closeScrapeShow);
 
-        // Reveal-email form — wire to Formspree for now (shares the existing waitlist endpoint)
+        // Reveal-email form — submit to backend waitlist (Brevo)
         document.getElementById('revealEmailForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const input = document.getElementById('revealEmailInput');
@@ -2126,12 +2126,17 @@
             btn.disabled = true;
             btn.textContent = 'Sending...';
             try {
-                await fetch('https://formspree.io/f/mwvwvnpv', {
+                const r = await fetch(SCRAPE_API_BASE + '/waitlist', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email, source: 'frequenz-scrape-reveal', task_id: currentTaskId || '' }),
+                    body: JSON.stringify({ email: email, source: 'scrape-reveal', task_id: currentTaskId || '' }),
                 });
-                btn.textContent = 'Check your inbox';
+                if (r.ok) {
+                    btn.textContent = 'You\'re in — check your inbox';
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Try again';
+                }
             } catch (err) {
                 btn.disabled = false;
                 btn.textContent = 'Try again';
@@ -2147,11 +2152,11 @@
         });
 
         // ── Waitlist form handling ──
-        const FORMSPREE_URL = 'https://formspree.io/f/mwvwvnpv';
+        const WAITLIST_API = SCRAPE_API_BASE + '/waitlist';
         let _pendingEmail = '';
 
-        async function submitToFormspree(payload) {
-            await fetch(FORMSPREE_URL, {
+        async function submitWaitlist(payload) {
+            await fetch(WAITLIST_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
@@ -2210,8 +2215,9 @@
             btn.textContent = 'Joining...';
             const price = document.querySelector('input[name="price"]:checked');
             try {
-                await submitToFormspree({
+                await submitWaitlist({
                     email: _pendingEmail,
+                    consent: true,
                     source: 'frequenz-landing',
                     city_frequency: document.getElementById('sq1').value || '',
                     discovery_method: document.getElementById('sq2').value || '',
@@ -2225,7 +2231,7 @@
         // Skip survey — submit email only
         document.getElementById('surveySkip').addEventListener('click', async () => {
             try {
-                await submitToFormspree({ email: _pendingEmail, source: 'frequenz-landing' });
+                await submitWaitlist({ email: _pendingEmail, consent: true, source: 'frequenz-landing' });
             } catch (err) { console.error('Signup failed:', err); }
             showSuccess(document.getElementById('waitlistForm'));
         });
@@ -2244,7 +2250,7 @@
             btn.disabled = true;
             btn.textContent = 'Joining...';
             try {
-                await submitToFormspree({ email, source: 'frequenz-landing-bottom' });
+                await submitWaitlist({ email, consent: true, source: 'frequenz-landing-bottom' });
                 btn.textContent = 'You\'re in.';
             } catch (err) {
                 btn.disabled = false;
