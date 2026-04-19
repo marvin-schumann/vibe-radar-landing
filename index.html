@@ -2109,10 +2109,13 @@
                 if (taskId !== currentTaskId) return;
                 if (data.progress) lastProgress = Object.assign(lastProgress, data.progress);
                 if (data.status === 'done' && data.result) {
-                    // Wait until at least scene 4 has shown (visual minimum ~11s) before revealing
+                    // Wait until at least scene 4 has shown (visual minimum ~11s) before redirecting
                     const minRevealMs = 11000;
                     const waitMore = Math.max(0, minRevealMs - elapsed);
-                    sceneTimers.push(setTimeout(() => renderReveal(data.result), waitMore));
+                    sceneTimers.push(setTimeout(() => {
+                        // Redirect to the full reveal page on the backend
+                        window.location.href = SCRAPE_API_BASE.replace('/api', '') + '/reveal/' + taskId;
+                    }, waitMore));
                     return;
                 }
                 if (data.status === 'failed') {
