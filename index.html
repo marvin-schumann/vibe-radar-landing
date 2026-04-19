@@ -1579,61 +1579,20 @@
 
             <!-- Email signup fallback for non-SoundCloud users -->
             <div class="waitlist-fallback" id="waitlistFallback">
-                <p class="form-note" style="margin: 2rem auto 0.75rem; color: var(--text-dim); font-size: 0.75rem; text-align: center;">Leave your email and we'll let you know when we support more platforms.</p>
+                <p class="form-note" style="margin: 2rem auto 0.75rem; color: var(--text-dim); font-size: 0.75rem; text-align: center;">Get notified when we add Spotify and other platforms.</p>
                 <form class="waitlist-form" id="waitlistForm">
-                    <input type="email" id="emailInput" placeholder="your@email.com" aria-label="Email address for waitlist" required autocomplete="email">
-                    <button type="submit" id="submitBtn">Continue</button>
+                    <input type="email" id="emailInput" placeholder="your@email.com" aria-label="Email address" required autocomplete="email">
+                    <button type="submit" id="submitBtn">Sign Up</button>
                 </form>
                 <label class="consent-row" id="consentRow1">
                     <input type="checkbox" id="consentCheck" required>
                     <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Brevo (Sendinblue SAS, France).</span>
                 </label>
                 <div class="consent-error-msg" id="consentError1">Please tick the consent box to continue.</div>
-
-            <!-- Step 2: survey -->
-            <div class="survey-step" id="surveyStep">
-                <h3>Quick questions — takes 30 seconds</h3>
-                <div class="survey-q">
-                    <label>Where are you based, and how often do you go to electronic events?</label>
-                    <select id="sq1">
-                        <option value="">Select...</option>
-                        <option>Madrid — 1x/month or less</option>
-                        <option>Madrid — 2-3x/month</option>
-                        <option>Madrid — weekly</option>
-                        <option>Barcelona — 1x/month or less</option>
-                        <option>Barcelona — 2-3x/month</option>
-                        <option>Berlin / Amsterdam / other EU city</option>
-                        <option>Outside Europe</option>
-                    </select>
+                <div class="form-success" id="formSuccess">
+                    You're in. We'll notify you.
                 </div>
-                <div class="survey-q">
-                    <label>How did you find out about the last 3 events you attended?</label>
-                    <input type="text" id="sq2" placeholder="Instagram, a friend, RA...">
-                </div>
-                <div class="survey-q">
-                    <label>What's your biggest frustration with finding events right now?</label>
-                    <input type="text" id="sq3" placeholder="Finding out too late, too much noise...">
-                </div>
-                <div class="survey-q">
-                    <label>What would you pay per month for this?</label>
-                    <div class="survey-radios">
-                        <label><input type="radio" name="price" value="€0"> €0</label>
-                        <label><input type="radio" name="price" value="€2–3"> €2–3</label>
-                        <label><input type="radio" name="price" value="€4–5"> €4–5</label>
-                        <label><input type="radio" name="price" value="€6–10"> €6–10</label>
-                        <label><input type="radio" name="price" value="€10+"> €10+</label>
-                    </div>
-                </div>
-                <div class="survey-actions">
-                    <button type="button" id="surveySubmit">Sign Up</button>
-                    <button type="button" class="survey-skip" id="surveySkip">Skip survey</button>
-                </div>
-            </div>
-
-            <div class="form-success" id="formSuccess">
-                You're in. Check your inbox.
-            </div>
-            <p class="form-note" id="formNote">Free to use. No spam. Unsubscribe anytime.</p>
+                <p class="form-note" id="formNote">Free. No spam. Unsubscribe anytime.</p>
             </div><!-- /.waitlist-fallback -->
 
             <div class="social-proof fade-up">
@@ -2284,47 +2243,26 @@
             if (document.getElementById('consentCheck2').checked) clearConsentError('consentRow2', 'consentError2');
         });
 
-        // Step 1: capture email, show survey
-        document.getElementById('waitlistForm').addEventListener('submit', (e) => {
+        // Fallback email form (non-SoundCloud users) — direct submit, no survey
+        document.getElementById('waitlistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!document.getElementById('consentCheck').checked) {
                 flagConsentError('consentRow1', 'consentError1');
                 return;
             }
             clearConsentError('consentRow1', 'consentError1');
-            _pendingEmail = document.getElementById('emailInput').value;
-            document.getElementById('waitlistForm').style.display = 'none';
-            document.getElementById('formNote').style.display = 'none';
-            document.getElementById('consentRow1').style.display = 'none';
-            document.getElementById('surveyStep').classList.add('active');
-        });
-
-        // Step 2: submit with survey answers
-        document.getElementById('surveySubmit').addEventListener('click', async () => {
-            const btn = document.getElementById('surveySubmit');
+            const email = document.getElementById('emailInput').value;
+            const btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = 'Joining...';
-            const price = document.querySelector('input[name="price"]:checked');
+            btn.textContent = 'Signing up...';
             try {
-                await submitWaitlist({
-                    email: _pendingEmail,
-                    consent: true,
-                    source: 'frequenz-landing',
-                    city_frequency: document.getElementById('sq1').value || '',
-                    discovery_method: document.getElementById('sq2').value || '',
-                    frustration: document.getElementById('sq3').value || '',
-                    willingness_to_pay: price ? price.value : '',
-                });
-            } catch (err) { console.error('Signup failed:', err); }
-            showSuccess(document.getElementById('waitlistForm'));
-        });
-
-        // Skip survey — submit email only
-        document.getElementById('surveySkip').addEventListener('click', async () => {
-            try {
-                await submitWaitlist({ email: _pendingEmail, consent: true, source: 'frequenz-landing' });
-            } catch (err) { console.error('Signup failed:', err); }
-            showSuccess(document.getElementById('waitlistForm'));
+                await submitWaitlist({ email, consent: true, source: 'frequenz-landing' });
+                showSuccess(document.getElementById('waitlistForm'));
+            } catch (err) {
+                console.error('Signup failed:', err);
+                btn.disabled = false;
+                btn.textContent = 'Try Again';
+            }
         });
 
         // Bottom form (removed — final CTA now just scrolls to scan form)
