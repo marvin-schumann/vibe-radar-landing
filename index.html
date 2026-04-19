@@ -1744,20 +1744,10 @@
         <!-- Final CTA -->
         <section class="final-cta">
             <h2 class="fade-up">Ready to find <span class="accent">your events</span>?</h2>
-            <p class="fade-up">Paste your SoundCloud URL and get your results in under 60 seconds.</p>
-            <div style="margin-bottom: 2rem;">
-                <a href="#scrapeForm" class="cta-primary" data-scroll-to="scrapeUrlInput">Get Started Free</a>
+            <p class="fade-up">Paste your SoundCloud URL and see your matched events in under 60 seconds. Free, no signup.</p>
+            <div>
+                <a href="#scrapeForm" class="cta-primary" data-scroll-to="scrapeUrlInput">Read My Taste</a>
             </div>
-            <p class="form-note" style="margin-bottom: 0.75rem; color: var(--text-dim); font-size: 0.75rem;">Or leave your email and we'll let you know when we support more platforms</p>
-            <form class="waitlist-form" id="waitlistForm2">
-                <input type="email" id="emailInput2" placeholder="your@email.com" aria-label="Email address" required autocomplete="email">
-                <button type="submit">Stay Updated</button>
-            </form>
-            <label class="consent-row" id="consentRow2">
-                <input type="checkbox" id="consentCheck2" required>
-                <span>I agree to the <a href="/datenschutz">Datenschutzerklärung</a> / <a href="/privacy">Privacy Policy</a>. My data is processed by Brevo (Sendinblue SAS, France).</span>
-            </label>
-            <div class="consent-error-msg" id="consentError2">Please tick the consent box to continue.</div>
         </section>
 
         <!-- Footer -->
@@ -2337,7 +2327,8 @@
             showSuccess(document.getElementById('waitlistForm'));
         });
 
-        // Bottom form (simple — no survey)
+        // Bottom form (removed — final CTA now just scrolls to scan form)
+        if (document.getElementById('waitlistForm2')) {
         document.getElementById('waitlistForm2').addEventListener('submit', async (e) => {
             e.preventDefault();
             if (!document.getElementById('consentCheck2').checked) {
@@ -2358,6 +2349,7 @@
                 btn.textContent = 'Try Again';
             }
         });
+        } // end if waitlistForm2 exists
 
         // CTA buttons scroll to the scrape form and focus the URL input.
         document.querySelectorAll('[data-scroll-to]').forEach(el => {
