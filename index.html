@@ -1682,7 +1682,7 @@
                 </label>
                 <div class="consent-error-msg" id="consentError1">Please tick the consent box to continue.</div>
                 <div class="form-success" id="formSuccess">
-                    You're in. We'll notify you.
+                    Check your email to confirm your signup.
                 </div>
                 <p class="form-note" id="formNote">Free. No spam. Unsubscribe anytime.</p>
             </div><!-- /.waitlist-fallback -->
@@ -2279,7 +2279,7 @@
                     body: JSON.stringify({ email: email, source: 'scrape-reveal', task_id: currentTaskId || '' }),
                 });
                 if (r.ok) {
-                    btn.textContent = 'You\'re in — check your inbox';
+                    btn.textContent = 'Confirmation email sent';
                 } else {
                     btn.disabled = false;
                     btn.textContent = 'Try again';
@@ -2378,7 +2378,7 @@
             btn.textContent = 'Joining...';
             try {
                 await submitWaitlist({ email, consent: true, source: 'frequenz-landing-bottom' });
-                btn.textContent = 'You\'re in.';
+                btn.textContent = 'Confirmation email sent';
             } catch (err) {
                 btn.disabled = false;
                 btn.textContent = 'Try Again';
